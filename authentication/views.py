@@ -110,7 +110,9 @@ def activate(request, uidb64, token):
     if myuser is not None and generate_token.check_token(myuser, token):
         myuser.is_active = True
         myuser.save()
-        login(request, myuser)
-        return redirect('home')
+        # login(request, myuser)
+        messages.success(request, "Your email has been confirmed. You can signin now.")
+
+        return redirect('signin')
     else:
         return render(request, 'activation_failed.html')
